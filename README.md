@@ -32,6 +32,10 @@ The web app adjusts automatically for mobile devices, ensuring the experience is
 - **Hufflepuff** – Loyal and hardworking! (Cedric Diggory)  
 - **Ravenclaw** – Wise and witty! (Luna Lovegood)  
 - **Slytherin** – Ambitious and cunning! (Draco Malfoy)
--   
+- ## 📂 File Structure
+-   Hogwarts-Sorting-Hat/
+├─ index.html
+  ─ README.md
+
 
 ## 📂 File Structure
