@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome to Hogwarts</title>
+
+<link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
+
+<style>
+    body {
+        text-align: center;
+        font-family: 'Georgia', serif;
+        background-color: #000;
+        color: white;
+        padding: 50px;
+        transition: background-color 0.5s;
+    }
+
+    h1 {
+        margin-bottom: 20px;
+        font-family: 'MedievalSharp', cursive;
+        font-size: 48px;
+        color: gold;
+        text-shadow: 2px 2px 5px #000;
+    }
+
+    #entrySection, #sortingSection {
+        margin-top: 30px;
+    }
+
+    input {
+        width: 200px;
+        max-width: 80%;
+        font-size: 16px;
+        padding: 10px;
+        border-radius: 8px;
+        border: none;
+    }
+
+    button {
+        width: 180px;
+        max-width: 60%;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 18px;
+        color: white;
+        background-color: darkred;
+        transition: transform 0.3s, background-color 0.3s;
+        margin-top: 10px;
+    }
+
+    button:hover {
+        background-color: crimson;
+    }
+
+    @keyframes bounce {
+        0%,100% { transform: translateY(0); }
+        50% { transform: translateY(-15px); }
+    }
+
+    .bounce {
+        animation: bounce 0.3s;
+    }
+
+    #houseMessage {
+        margin-top: 20px;
+        font-size: 22px;
+        font-weight: bold;
+        text-shadow: 1px 1px 2px #000;
+    }
+
+    #idolMessage {
+        margin-top: 10px;
+        font-size: 20px;
+        font-style: italic;
+    }
+
+    #resetBtn {
+        margin-top: 25px;
+        display: none;
+        background-color: darkgreen;
+    }
+
+    #resetBtn:hover {
+        background-color: seagreen;
+    }
+
+
+    @media (max-width: 500px) {
+        body {
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 32px;
+        }
+
+        #houseMessage {
+            font-size: 18px;
+        }
+
+        #idolMessage {
+            font-size: 16px;
+        }
+
+        input, button {
+            width: 80%;
+        }
+
+        button {
+            font-size: 16px;
+        }
+    }
+</style>
+</head>
+<body>
+
+<h1>✨ Welcome to Hogwarts ✨</h1>
+
+<div id="entrySection">
+    <p>Enter your name to begin your magical journey:</p>
+    <input type="text" id="nameInput" placeholder="Your Name Here">
+    <button id="startBtn">Enter</button>
+</div>
+
+
+<div id="sortingSection" style="display:none;">
+    <h2 id="welcomeMessage"></h2>
+    <button id="sortinghatBtn">🎩 Sorting Hat</button>
+    <p id="houseMessage"></p>
+    <p id="idolMessage"></p>
+    <button id="resetBtn">Try Again</button>
+</div>
+
+<script>
+const startBtn = document.getElementById("startBtn");
+const nameInput = document.getElementById("nameInput");
+const entrySection = document.getElementById("entrySection");
+const sortingSection = document.getElementById("sortingSection");
+const welcomeMessage = document.getElementById("welcomeMessage");
+const sortinghatBtn = document.getElementById("sortinghatBtn");
+const houseMessage = document.getElementById("houseMessage");
+const idolMessage = document.getElementById("idolMessage");
+const resetBtn = document.getElementById("resetBtn");
+
+
+const houses = [
+    { name: "Gryffindor", color: "#7F0909", message: "Brave and daring!", idol: "Harry, Hermione & Ron" },
+    { name: "Hufflepuff", color: "#EEE117", message: "Loyal and hardworking!", idol: "Cedric Diggory" },
+    { name: "Ravenclaw", color: "#222F5B", message: "Wise and witty!", idol: "Luna Lovegood" },
+    { name: "Slytherin", color: "#1A472A", message: "Ambitious and cunning!", idol: "Draco Malfoy" }
+];
+
+let sorted = false;
+
+
+startBtn.addEventListener("click", () => {
+    const name = nameInput.value.trim();
+
+    if (name === "") {
+        alert("Please enter your name, young wizard!");
+        return;
+    }
+
+    entrySection.style.display = "none";
+    sortingSection.style.display = "block";
+    welcomeMessage.textContent = `Welcome, ${name}! Let's find your Hogwarts House.`;
+});
+
+
+sortinghatBtn.addEventListener("click", () => {
+    if (sorted) return;
+
+    const randomHouse = houses[Math.floor(Math.random() * houses.length)];
+
+    document.body.style.backgroundColor = randomHouse.color;
+    houseMessage.textContent = `🏰 ${randomHouse.name}: ${randomHouse.message}`;
+    idolMessage.textContent = `✨ You share your house with ${randomHouse.idol}!`;
+
+    welcomeMessage.style.display = "none";
+
+    sortinghatBtn.classList.add("bounce");
+    setTimeout(() => sortinghatBtn.classList.remove("bounce"), 300);
+
+    sorted = true;
+    resetBtn.style.display = "inline-block";
+});
+
+
+resetBtn.addEventListener("click", () => {
+    sorted = false;
+    houseMessage.textContent = "";
+    idolMessage.textContent = "";
+    document.body.style.backgroundColor = "#000";
+    welcomeMessage.style.display = "block";
+    resetBtn.style.display = "none";
+});
+</script>
+
+</body>
+</html>
